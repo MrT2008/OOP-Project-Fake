@@ -1,22 +1,22 @@
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
+import javax.swing.*; 
 
 public class Test {
     public static void main(String[] args) {
-        // String name = JOptionPane.showInputDialog(null, "Enter Your name: ", "Input", JOptionPane.QUESTION_MESSAGE);
-        // if(name != null && !name.isEmpty()) {
-        //     String mess = "Welcome, "+name+", to Candy Crush! ";
-        //     JOptionPane.showMessageDialog(null, mess, "Greeting", JOptionPane.INFORMATION_MESSAGE);
-        // } else {
-        //     JOptionPane.showMessageDialog(null, "You did not enter a name.", "Error", JOptionPane.ERROR_MESSAGE);
-        // }
+        SwingUtilities.invokeLater(() -> {
+            CandyCrushModel model = new CandyCrushModel();
+            View3 view = new View3(model);
+            CandyCrushController controller = new CandyCrushController(model, view);
 
-        // try {
-        //     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        //     CandyCrushModel model = new CandyCrushModel(null);
-            View2 v = new View2();
-    //     } catch(Exception e) {
-    //         e.printStackTrace();
-    //     }
+            JFrame frame = new JFrame("Candy Crush");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setResizable(false);
+            // frame.setSize(740, 480);
+            frame.add(view);
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+
+            controller.start();
+        });
     }
 }
