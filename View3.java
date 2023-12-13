@@ -17,6 +17,9 @@ public class View3 extends JPanel {
     // private int click = 0;
     private final int WIDTH = 740;
     private final int HEIGHT = 480;
+    private boolean isFirstClicked = false;
+    private int firstClickX = 0;
+    private int firstClickY = 0;
 
     public View3(CandyCrushModel model) {
         this.model = model;
@@ -55,11 +58,9 @@ public class View3 extends JPanel {
                 // System.out.println("show cursror: "+ control.getClick() );
 
                 //Show cursor
-                
-                if(control.click == 1) {
-                    System.out.println("Clicked");
+
+                if (isFirstClicked) {
                     if(x0 == j && y0 == i) {
-                        System.out.println("Cursor Position - X: " + (grid[i][j].x + (offsetX - tileSize)) + ", Y: " + (grid[i][j].y + (offsetY - tileSize)));      /*Test */
                         g2.drawImage(
                                 cursor,
                                 grid[i][j].x + (offsetX - tileSize),
@@ -69,7 +70,17 @@ public class View3 extends JPanel {
                                 null
                         );
                     }
-                    control.resetClick();
+
+                    firstClickX = x0;
+                    firstClickY = y0;
+
+                    // repaint();
+                }
+                else {
+                    System.out.printf("Swap (%d, %d) with (%d, %d)\n", x0, y0, firstClickX, firstClickY);
+                    model.swapPieces(grid[y0][x0], grid[firstClickY][firstClickX]);
+
+                    // repaint();
                 }
             }
         }
@@ -78,11 +89,23 @@ public class View3 extends JPanel {
         g.drawImage(view, 0, 0, WIDTH, HEIGHT, null);
         g.dispose();
 
-        SwingUtilities.invokeLater(() -> {
-            // Cập nhật thành phần giao diện trên EDT
-            repaint();
-        });
+        // SwingUtilities.invokeLater(() -> {
+        // Cập nhật thành phần giao diện trên EDT
+        //    repaint();
+        // });
 
+    }
+
+    public void setX0(int x0) {
+        this.x0 = x0 + 1;
+    }
+
+    public void setY0(int y0) {
+        this.y0 = y0 + 1;
+    }
+
+    public void toggleFirstClick() {
+        this.isFirstClicked = !this.isFirstClicked;
     }
 
     @Override

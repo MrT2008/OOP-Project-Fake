@@ -4,7 +4,7 @@ import java.awt.event.MouseListener;
 public class CandyCrushController implements Runnable, MouseListener {
     private CandyCrushModel model;
     private View3 view;
-    private boolean isRunning;
+    private boolean isRunning = true;
     private Thread thread;
     private MouseEvent mouse;
     private boolean isSwap = false, isMoving = false; 
@@ -50,14 +50,14 @@ public class CandyCrushController implements Runnable, MouseListener {
             // Check if the left mouse button is pressed
             if (mouse.getButton() == MouseEvent.BUTTON1) {
                 // Check if swapping or moving is not in progress
-                if (!isSwap && !isMoving) {
+//                if (!isSwap && !isMoving) {
                     //click++;
-                    handleFirstClick();
+                    // handleFirstClick();
 
-                } else {
+//                } else {
                     // Reset click count if swapping or moving is in progress
-                    click = 0;
-                }
+                // click = 0;
+//                }
             }
 
             // Reset mouse to null after processing the event
@@ -119,6 +119,17 @@ public class CandyCrushController implements Runnable, MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         mouse = e;
+
+        // :)
+        int magicNumber = 54;
+
+        double squareX = Math.floor((e.getX() - offsetX) / magicNumber);
+        double squareY = Math.floor((e.getY() - offsetY) / magicNumber);
+
+        // System.out.printf("x = %f, y = %f\n", squareX, squareY);
+        view.toggleFirstClick();
+        view.setX0((int) squareX);
+        view.setY0((int) squareY);
     }
 
     @Override
