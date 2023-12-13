@@ -9,9 +9,9 @@ public class CandyCrushModel {
     private boolean isSwap = false, isMoving = false;
     private int x0, y0, x, y;
 
-
     public CandyCrushModel() {
-        grid = new Piece[10][10];
+        // grid = new Piece[10][10];
+        initializeGrid();
     }
 
     public Piece[][] getGrid() {
@@ -81,7 +81,7 @@ public class CandyCrushModel {
     }
 
     public void moving() {
-        boolean isMoving = false;
+        isMoving = false;
         for (int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 8; j++) {
                 Piece p = grid[i][j];
@@ -114,9 +114,9 @@ public class CandyCrushModel {
 
     public void secondSwap() {
         if(isSwap && !isMoving) {
-            if(score == 0) {
+            // if(score == 0) {
                 swapPieces(grid[y0][x0], grid[y][x]);
-            }
+            // }
             isSwap = false;
         }
     }
